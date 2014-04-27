@@ -1,0 +1,9 @@
+warn if FROM doesn't have a tag
+capitalize commands
+order commands (FROM first, CMD last, etc.)
+warn if no maintainer, should also warn if missing name/email and not formatted correctly
+combine expose cmds
+combine apt-get and other like cmds where possible (otherwise warn if uncertain of how to combine)
+validate ADD file paths/url endpoints exist (error for files, warn for urls)
+look for 'upgrade' and warn
+look for multiple processes (warn)
