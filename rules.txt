@@ -7,3 +7,4 @@ combine apt-get and other like cmds where possible (otherwise warn if uncertain 
 validate ADD file paths/url endpoints exist (error for files, warn for urls)
 look for 'upgrade' and warn
 look for multiple processes (warn)
+format CMD and ENTRYPOINT consistently (all in an array, or otherwise)
