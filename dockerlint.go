@@ -32,7 +32,7 @@ func main() {
         fmt.Print("foo \n")
     }
 
-    rules()
+    Rules()
 
     // strip whitespace
     //endsWith := strings.HasSuffix("suffix", "\")
