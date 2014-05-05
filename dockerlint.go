@@ -40,7 +40,9 @@ func main() {
         // check end of line for '\', to determine breaks between commands
         partialCommand := strings.HasSuffix(strings.TrimSpace(buffer.String()), "\\")
         if !partialCommand {
-            Rules(buffer.String())
+            if len(buffer.String()) > 0 {
+                Rules(buffer.String())
+            }
             buffer.Reset()
         }
     }
