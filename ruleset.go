@@ -14,8 +14,8 @@ func capitalize() {
 }
 
 
-func Rules() {
-    r, err := regexp.Compile(`Hello`)
+func Rules(command string) {
+    r, err := regexp.Compile(command)
 
     if err != nil {
         fmt.Println("There is a problem with your regexp.\n")

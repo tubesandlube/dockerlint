@@ -17,36 +17,42 @@ func check(e error) {
 
 func main() {
     var buffer bytes.Buffer
+    var dockerfile string
+    var writeString string
 
     fmt.Println(len(os.Args), os.Args)
+    if len(os.Args) <= 1 {
+        dockerfile = "Dockerfile"
+    } else {
+        dockerfile = os.Args[1]
+    }
 
-    file, err := os.Open("Dockerfile")
+    readFile, err := os.Open(dockerfile)
     check(err)
+    defer readFile.Close()
 
-    defer file.Close()
-
-    scanner := bufio.NewScanner(file)
+    scanner := bufio.NewScanner(readFile)
     for scanner.Scan() {
         buffer.WriteString(scanner.Text())
+        writeString += scanner.Text()+"\n"
 
         // strip whitespace
         // check end of line for '\', to determine breaks between commands
         partialCommand := strings.HasSuffix(strings.TrimSpace(buffer.String()), "\\")
         if !partialCommand {
-            fmt.Println(buffer.String())
+            Rules(buffer.String())
             buffer.Reset()
         }
     }
 
-    Rules()
-
-
-    file, err = os.Create("Dockerfile")
+    writeFile, err := os.Create(dockerfile)
     check(err)
 
-    w := bufio.NewWriter(file)
-    n4, err := w.WriteString("buffered\n")
-    fmt.Println("wrote %d bytes\n", n4)
+    w := bufio.NewWriter(writeFile)
+    bytesWritten, err := w.WriteString(writeString)  
+    check(err)
+
+    fmt.Println("Bytes written", bytesWritten)
 
     w.Flush()
 }
