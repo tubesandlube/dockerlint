@@ -1,43 +1,52 @@
 package main
 
 import (
+    "bufio"
+    "bytes"
     "fmt"
-    "io/ioutil"
     "os"
-    //"strings"
+    "strings"
 )
 
 func check(e error) {
     if e != nil {
-        fmt.Printf("error")
+        fmt.Println("error")
         panic(e)
     }
 }
 
 func main() {
+    var buffer bytes.Buffer
+
     fmt.Println(len(os.Args), os.Args)
 
-    dat, err := ioutil.ReadFile("Dockerfile")
+    file, err := os.Open("Dockerfile")
     check(err)
-    fmt.Print(string(dat))
 
+    defer file.Close()
 
-    // join dat into a string
-    // split string into slices by newlines
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        buffer.WriteString(scanner.Text())
 
-    // split dat into commands
-    // check end of line for '\', to determine breaks between commands
-    for _,element := range dat {
-        fmt.Print(string(element))
-        fmt.Print("foo \n")
+        // strip whitespace
+        // check end of line for '\', to determine breaks between commands
+        partialCommand := strings.HasSuffix(strings.TrimSpace(buffer.String()), "\\")
+        if !partialCommand {
+            fmt.Println(buffer.String())
+            buffer.Reset()
+        }
     }
 
     Rules()
 
-    // strip whitespace
-    //endsWith := strings.HasSuffix("suffix", "\")
 
-    d1 := []byte("hello\ngo\n")
-    err = ioutil.WriteFile("Dockerfile", d1, 0644)
+    file, err = os.Create("Dockerfile")
     check(err)
+
+    w := bufio.NewWriter(file)
+    n4, err := w.WriteString("buffered\n")
+    fmt.Println("wrote %d bytes\n", n4)
+
+    w.Flush()
 }
