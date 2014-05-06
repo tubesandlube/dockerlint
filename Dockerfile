@@ -13,7 +13,5 @@ ENV PATH $PATH:$GOPATH/bin:$GOROOT/bin
 ADD . /usr/local/go/src/dockerlint
 RUN go install dockerlint
 
-USER nobody
-
-ENTRYPOINT ["dockerlint"]
+ENTRYPOINT ["/usr/local/go/bin/dockerlint"]
 CMD ["/usr/local/go/src/dockerlint/Dockerfile"]

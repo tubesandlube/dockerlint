@@ -9,3 +9,42 @@ look for 'upgrade' and warn
 look for multiple processes (warn)
 format CMD and ENTRYPOINT consistently (all in an array, or otherwise)
 check for too many lines (currently supports 127 layers, i believe)
+
+FROM http://docs.docker.io/reference/builder/
+
+The Instruction is not case-sensitive, however convention is for them to be UPPERCASE in order to distinguish them from arguments more easily.
+
+Docker evaluates the instructions in a Dockerfile in order. The first instruction must be `FROM` in order to specify the Base Image from which you are building.
+
+Docker will treat lines that begin with # as a comment. A # marker anywhere else in the line will be treated as an argument.
+
+FROM must be the first non-comment instruction in the Dockerfile.
+
+FROM can appear multiple times within a single Dockerfile in order to create multiple images. Simply make a note of the last image id output by the commit before each new FROM command.
+
+If no tag is given to the FROM instruction, latest is assumed. If the used tag does not exist, an error will be returned.
+
+two run forms:
+RUN <command> (the command is run in a shell - /bin/sh -c)
+RUN ["executable", "param1", "param2"] (exec form)
+
+three cmd forms:
+CMD ["executable","param1","param2"] (like an exec, preferred form)
+CMD ["param1","param2"] (as default parameters to ENTRYPOINT)
+CMD command param1 param2 (as a shell)
+
+There can only be one CMD in a Dockerfile. If you list more than one CMD then only the last CMD will take effect.
+The main purpose of a CMD is to provide defaults for an executing container. These defaults can include an executable, or they can omit the executable, in which case you must specify an ENTRYPOINT as well.
+
+If you want to run your <command> without a shell then you must express the command as a JSON array and give the full path to the executable. This array form is the preferred format of CMD. Any additional parameters must be individually expressed as strings in the array.
+
+two entrypoint forms:
+ENTRYPOINT ["executable", "param1", "param2"] (like an exec, preferred form)
+ENTRYPOINT command param1 param2 (as a shell)
+
+There can only be one ENTRYPOINT in a Dockerfile. If you have more than one ENTRYPOINT, then only the last one in the Dockerfile will have an effect.
+
+It can be used multiple times in the one Dockerfile. If a relative path is provided, it will be relative to the path of the previous WORKDIR instruction.
+
+Warning: Chaining ONBUILD instructions using ONBUILD ONBUILD isn't allowed.
+Warning: ONBUILD may not trigger FROM or MAINTAINER instructions.
