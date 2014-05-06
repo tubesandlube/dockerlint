@@ -14,12 +14,12 @@ func capitalize() {
 }
 
 
-func Rules(command string) {
+func Rules(command string) string {
     r, err := regexp.Compile(command)
 
     if err != nil {
         fmt.Println("There is a problem with your regexp.\n")
-        return
+        return ""
     }
 
     // Will print 'Match'
@@ -30,4 +30,5 @@ func Rules(command string) {
     }
     validate()
     capitalize()
+    return command
 }
