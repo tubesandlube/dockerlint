@@ -20,14 +20,19 @@ func capitalize(command string) string {
 
 func checkFirstCommand(command string) bool {
     fmt.Println("first command must be FROM")
-    // TODO
-    return true
+    command = strings.ToUpper(command)
+    if strings.HasPrefix(command, "FROM ") {
+        return true
+    }
+    return false
 }
 
 func checkFromTag(command string) bool {
     fmt.Println("FROM command should have a tag")
-    // TODO
-    return true
+    if strings.Contains(command, ":") {
+        return true
+    }
+    return false
 }
 
 func Rules(command string, line int) string {
