@@ -19,6 +19,7 @@ func main() {
     var buffer bytes.Buffer
     var dockerfile string
     var writeString string
+    var line int
 
     fmt.Println(len(os.Args), os.Args)
     if len(os.Args) <= 1 {
@@ -31,6 +32,7 @@ func main() {
     check(err)
     defer readFile.Close()
 
+    line = 1
     scanner := bufio.NewScanner(readFile)
     for scanner.Scan() {
         buffer.WriteString(scanner.Text())
@@ -40,7 +42,8 @@ func main() {
         partialCommand := strings.HasSuffix(strings.TrimSpace(buffer.String()), "\\")
         if !partialCommand {
             if len(buffer.String()) > 0 {
-                 writeString += Rules(buffer.String())
+                 writeString += Rules(buffer.String(), line)
+                 line += 1
             }
             writeString += "\n"
             buffer.Reset()
