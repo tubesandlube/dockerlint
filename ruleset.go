@@ -5,8 +5,10 @@ import (
     "strings"
 )
 
-func validate() {
+func validate(command string) bool {
     fmt.Println("validate the dockerfile is syntactically correct")
+    // TODO
+    return true
 }
 
 func capitalize(command string) string {
@@ -40,10 +42,12 @@ func Rules(command string, line int) string {
     if strings.HasPrefix(command, "#") {
         fmt.Println("Line is a comment")
     } else {
-        validate()
+        v := validate(command)
+        fmt.Println(v)
+
         command = capitalize(command)
         if line == 1 {
-            v := checkFirstCommand(command)
+            v = checkFirstCommand(command)
             fmt.Println(v)
             v = checkFromTag(command)
             fmt.Println(v)
