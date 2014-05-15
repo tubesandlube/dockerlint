@@ -48,6 +48,10 @@ func Rules(command string, line int) string {
             v = checkFromTag(command)
             fmt.Println(v)
         }
+        // check for too many layers
+        if line == 128 {
+            fmt.Println("Too many layers were found, reduce the number of commands")
+        }
     }
     fmt.Println(line)
     return command
