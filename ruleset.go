@@ -3,14 +3,20 @@ package main
 import (
     "fmt"
     "regexp"
+    "strings"
 )
 
 func validate() {
     fmt.Println("validate the dockerfile is syntactically correct")
 }
 
-func capitalize() {
+func capitalize(command string) string {
     fmt.Println("capitalize all of the commands")
+    s := strings.SplitN(command, " ", 2)
+    s[0] = strings.ToUpper(s[0])
+    command = strings.Join(s, " ")
+    fmt.Println(command)
+    return command
 }
 
 
@@ -28,7 +34,13 @@ func Rules(command string) string {
     } else {
         fmt.Println("No match ")
     }
-    validate()
-    capitalize()
+
+    // Run against ruleset unless it's a comment
+    if strings.HasPrefix(command, "#") {
+        fmt.Println("Line is a comment")
+    } else {
+        validate()
+        command = capitalize(command)
+    }
     return command
 }

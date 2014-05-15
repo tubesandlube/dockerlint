@@ -34,7 +34,6 @@ func main() {
     scanner := bufio.NewScanner(readFile)
     for scanner.Scan() {
         buffer.WriteString(scanner.Text())
-        //writeString += scanner.Text()+"\n"
 
         // strip whitespace
         // check end of line for '\', to determine breaks between commands
@@ -52,7 +51,7 @@ func main() {
     check(err)
 
     w := bufio.NewWriter(writeFile)
-    _, err = w.WriteString(writeString)  
+    _, err = w.WriteString(writeString)
     check(err)
 
     w.Flush()
