@@ -2,8 +2,12 @@ warn if FROM doesn't have a tag
 capitalize commands
 order commands (FROM first, CMD last, etc.)
 warn if no maintainer, should also warn if missing name/email and not formatted correctly
+- rfc formatting on email? any movement towards using github/twitter handles/urls?
+
 combine expose cmds
 combine apt-get and other like cmds where possible (otherwise warn if uncertain of how to combine)
+- note that ordering may matter
+
 validate ADD file paths/url endpoints exist (error for files, warn for urls)
 look for 'upgrade' and warn
 look for multiple processes (warn)
@@ -12,7 +16,7 @@ check for too many lines (currently supports 127 layers, i believe)
 
 FROM http://docs.docker.io/reference/builder/
 
-The Instruction is not case-sensitive, however convention is for them to be UPPERCASE in order to distinguish them from arguments more easily.
+* The Instruction is not case-sensitive, however convention is for them to be UPPERCASE in order to distinguish them from arguments more easily.
 
 Docker evaluates the instructions in a Dockerfile in order. The first instruction must be `FROM` in order to specify the Base Image from which you are building.
 
