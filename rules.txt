@@ -1,3 +1,4 @@
+warn if WORKDIR is not used
 warn if FROM doesn't have a tag
 capitalize commands
 order commands (FROM first, CMD last, etc.)
