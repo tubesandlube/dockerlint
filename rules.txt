@@ -1,4 +1,5 @@
 warn if WORKDIR is not used
+- for info on WORKDIR: https://github.com/dotcloud/docker/issues/2105
 warn if FROM doesn't have a tag
 capitalize commands
 order commands (FROM first, CMD last, etc.)
