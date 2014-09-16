@@ -11,6 +11,7 @@ warn if no maintainer, should also warn if missing name/email and not formatted 
 combine expose cmds
 combine apt-get and other like cmds where possible (otherwise warn if uncertain of how to combine)
 - note that ordering may matter
+- suggest apt-get clean at end
 
 validate ADD file paths/url endpoints exist (error for files, warn for urls)
 look for 'upgrade' and warn
